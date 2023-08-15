@@ -7,7 +7,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <x-modal.modal-header title="Create Todo" id="addTodoLabel"/>
-            <form action="/todos/{{ $id }}" method="post">
+            <form action="/todos" method="post">
                 @csrf
                 @method('POST')
                 <div class="modal-body text-start">

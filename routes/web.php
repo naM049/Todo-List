@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Todo;
+use App\Http\Controllers\TodoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,11 +19,6 @@ Route::get('/', function () {
     return redirect('/todos');
 });
 
-Route::get('/todos', [Todo::class, 'index']);
-Route::get('todos/{id}',[Todo::class, 'show']);
-Route::get('file',[Todo::class, 'createFile']);
-Route::get('viewFile/{fileName}',[Todo::class, 'viewFile'])->name('viewFile');
-Route::post('file',[Todo::class, 'uploadFile']);
-Route::post('todos/{id}',[Todo::class,'store' ]);
-Route::put('todos/{id}',[Todo::class,'update']);
-Route::delete('todos/{id}',[Todo::class,'destroy']);
+Route::resource('todos', TodoController::class)
+    ->only('index','store','update','destroy');
+
