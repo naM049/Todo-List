@@ -12,7 +12,7 @@ class TodoController extends Controller
 
     public function index(): View
     {
-        $todos = Todo::all();
+        $todos = Todo::whereBelongsTo(auth()->user())->get();
         return view('todos', ['todos' => $todos]);
     }
 
@@ -24,6 +24,7 @@ class TodoController extends Controller
 
         Todo::create([
             'title' => $request->title,
+            'user_id' => \Auth::user()->id,
             'description' => $request->description,
             'completed' => (bool)$request->completed
         ]);
@@ -55,6 +56,7 @@ class TodoController extends Controller
 
         $todo->update([
             'title' => $request->title,
+            'user_id' => \Auth::user()->id,
             'description' => $request->description,
             'completed' => (bool)$request->completed
         ]);

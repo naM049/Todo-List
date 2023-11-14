@@ -16,9 +16,13 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return redirect('/todos');
+    return redirect('/login');
 });
 
-Route::resource('todos', TodoController::class)
-    ->only('index','store','update','destroy');
 
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('todos', TodoController::class)
+    ->only('index','store','update','destroy')->middleware('auth:web');
